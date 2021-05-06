@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spring Boot Calculator</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+<div th:replace="header :: header"></div>
+
+<main role="main" class="container">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="row">Дата</th>
+<!--            <th scope="row">Заголовок-->
+            <th scope="row">Ссылка на медузу</th>
+            <th scope="row">Изображение</th>
+        </tr>
+        </thead>
+        <tbody th:each="content : ${contentList}">
+        <tr scope="row">
+
+        <td th:text="${#temporals.format(content.getPubDate(),'MM-dd-yyyy')}">
+            <td>
+
+            <a th:href="'https://meduza.io/'+${content.getUrl()}" th:text="${content.getTitle()}"/>
+        </a>
+            </td>
+            <td>
+            <img class="img-fluid" th:src="${(content.getShareImageUrl() == null) ? '': content.getShareImageUrl()}"/>
+        </td>
+
+
+    </table>
+
+    <!--<div align="center">
+        <div id="centerOne">
+            <form action="#" data-th-action="@{/meduza/button}" method="post">
+                <button type="submit" class="btn btn-success" name="previous" value="previous">Назад</button>
+                <button type="submit" class="btn btn-success" name="next" value="next">Вперед</button>
+            </form>
+        </div>
+    </div>-->
+
+    <form action="#" data-th-action="@{/meduza/button}" method="post">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled" value="previous">
+                    <a type="submit" class="page-link" href="#" tabindex="previous" aria-disabled="true">Назад</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a type="submit" class="page-link" href="#" tabindex="next">Вперед</a>
+                </li>
+            </ul>
+        </nav>
+    </form>
+
+</main>
+
+
+<!-- /.container -->
+
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
